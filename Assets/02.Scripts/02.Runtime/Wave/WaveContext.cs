@@ -7,19 +7,35 @@ using UnityEngine;
 /// 5. 웨이브가 3단계가 끝날 때까지 게임오버 조건이 되지 않으면 게임 클리어 신호를 전달
 /// 6. 웨이브가 3단계가 끝나기 전 어떤 시점에서든 AliveCount가 max수치를 초과해 과부하 조건을 충족하면 게임 오버 신호를 전달
 /// </summary>
-public class WaveManager : MonoBehaviour
+public class WaveContext : MonoBehaviour
 {
+    // 게임 매니저
     GameManager gameMgr;
     [SerializeField] GameClock gameClock;
-    [SerializeField] WaveData waveData;
-    public WaveData Data => waveData;
+    // 웨이브 관련
+    [SerializeField] WaveDataSO waveData;
+    public WaveDataSO Data => waveData;
+    [SerializeField] EnemyPool enemyPool;
+    public Transform[] enemyRoute;
+    public EnemyPool EnemyPool => enemyPool;
     [SerializeField] WaveSpawner waveSpawner;
 
-    void Start()
+    void Awake()
     {
         gameMgr = GameManager.Instance;
         gameClock = gameMgr.gameClock;
     }
+
+    void OnEnable()
+    {
+        Data.Init();
+    }
+
+    void Start()
+    {
+        TakeRoute();
+    }
+
     void Update()
     {
         if (gameClock.WaveStart() == true && gameMgr.State == GameState.Runtime)
@@ -35,16 +51,33 @@ public class WaveManager : MonoBehaviour
             Debug.Log("Game Over");
             GameOver();
         }
-        else if (waveData.WaveIdx >= 3 && gameMgr.State == GameState.Runtime)
+        else if (waveData.WaveIdx >= waveData.MaxWaveIdx && gameMgr.State == GameState.Runtime)
         {
             Debug.Log("Game Clear");
             GameClear();
         }
     }
 
+    void TakeRoute()
+    {
+        var r = GameObject.FindWithTag("Route");
+        var all = r.GetComponentsInChildren<Transform>();
+
+        enemyRoute = new Transform[all.Length - 1];
+        for (int i = 1; i < all.Length; ++i)
+        {
+            enemyRoute[i - 1] = all[i];
+        }
+    }
+
     public void ReportEnemyDead()
     {
         Data.EnemyKill();
+    }
+
+    public void LevelUp()
+    {
+        Data.LevelUpAndReset();
     }
 
     void GameClear()

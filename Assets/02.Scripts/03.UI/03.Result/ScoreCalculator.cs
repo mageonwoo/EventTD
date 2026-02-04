@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class ScoreCalculator : MonoBehaviour
 {
-    [SerializeField] WaveManager waveMgr;
+    [SerializeField] WaveContext waveMgr;
     [SerializeField] int score;
     [SerializeField] int gold;
 
     void Awake()
     {
-        waveMgr = FindFirstObjectByType<WaveManager>();
+        waveMgr = FindFirstObjectByType<WaveContext>();
         score = 0;
     }
 

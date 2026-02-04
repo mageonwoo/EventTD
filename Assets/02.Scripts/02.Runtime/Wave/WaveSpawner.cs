@@ -10,27 +10,30 @@ using UnityEngine;
 /// </summary>
 public class WaveSpawner : MonoBehaviour
 {
-    [SerializeField] WaveManager waveMgr;
+    [SerializeField] WaveContext waveCxt;
     [SerializeField] GameObject enemyRoot;
+    [SerializeField] EnemyPool enemyPool;
 
 
     void Awake()
     {
-        if (!waveMgr)
-            waveMgr = GetComponent<WaveManager>();
+        if (!waveCxt)
+            waveCxt = GetComponent<WaveContext>();
+        if (!enemyPool)
+            enemyPool = FindFirstObjectByType<EnemyPool>();
     }
 
     public void SpawnEnemy()
     {
-        waveMgr.Data.spawnCoolDown += Time.deltaTime;
+        waveCxt.Data.spawnCoolDown += Time.deltaTime;
 
-        if (waveMgr.Data.Spawned < waveMgr.Data.MaxSpawn)
+        if (waveCxt.Data.Spawned < waveCxt.Data.MaxSpawn)
         {
-            if (waveMgr.Data.spawnCoolDown >= 1)
+            if (waveCxt.Data.spawnCoolDown >= 1)
             {
-                Instantiate(waveMgr.Data.EnemySO.EnemyPrefab, enemyRoot.transform);
-                waveMgr.Data.SpawnCount();
-                waveMgr.Data.spawnCoolDown = 0;
+                enemyPool.Get(waveCxt.Data.WaveIdx);
+                waveCxt.Data.SpawnCount();
+                waveCxt.Data.spawnCoolDown = 0;
             }
         }
         else
@@ -39,12 +42,11 @@ public class WaveSpawner : MonoBehaviour
 
     public void WaveTimer()
     {
-        waveMgr.Data.waveTimer += Time.deltaTime;
+        waveCxt.Data.waveTimer += Time.deltaTime;
 
-        if (waveMgr.Data.waveTimer >= waveMgr.Data.WaveDur)
+        if (waveCxt.Data.waveTimer >= waveCxt.Data.WaveDur)
         {
-            waveMgr.Data.waveTimer = 0;
-            waveMgr.Data.WaveLevelUp();
+            waveCxt.LevelUp();
         }
     }
 }

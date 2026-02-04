@@ -2,10 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-
+/// <summary>
+/// 1순위(완료). HUD를 로직에서 분리, 데이터 읽기 전용으로 정리
+/// 2순위. 실시간 주기 갱신, 이벤트성 변경 시점 갱신으로 분리
+/// </summary>
 public class GameHUD : MonoBehaviour
 {
-    [SerializeField] WaveManager waveMgr;
+    [SerializeField] WaveContext waveMgr;
 
     [SerializeField] TMP_Text userId;
     [SerializeField] TMP_Text waveIdx;
@@ -14,22 +17,26 @@ public class GameHUD : MonoBehaviour
 
     void Awake()
     {
-        if (!waveMgr) waveMgr = FindFirstObjectByType<WaveManager>();
+        if (!waveMgr) waveMgr = FindFirstObjectByType<WaveContext>();
+    }
+
+    void OnEnable()
+    {
+        BriefUserID();
     }
 
     void Update()
     {
-        BriefUserID();
         BriefWaveIdx();
         BriefAlive();
         BriefTime();
     }
-    
+
     void BriefUserID()
     {
         string id = GameManager.Instance.UserId;
 
-        if(id == null)
+        if (id == null)
             userId.text = "Guest";
         else
             userId.text = $"UID: {id}";
@@ -53,10 +60,10 @@ public class GameHUD : MonoBehaviour
         var time = waveMgr.Data.WaveDur - waveMgr.Data.waveTimer;
 
         int sec = Mathf.CeilToInt(time);
-        
+
         if (sec > 0)
             waveRemainedT.text = $"Time: {sec}s / 30s";
-            else
+        else
             waveRemainedT.text = "Time: 0s / 30s";
     }
 }

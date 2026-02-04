@@ -6,8 +6,11 @@ using UnityEngine;
 public class EnemyTypeSO : ScriptableObject
 {
     [SerializeField] GameObject enemyPrefab;
-    [SerializeField] int maxHP;
-
     public GameObject EnemyPrefab => enemyPrefab;
+
+    [SerializeField] int maxHP;
     public int MaxHP => maxHP;
+
+    [SerializeField] int waveLev = 0;
+    public int WaveLev => waveLev;
 }

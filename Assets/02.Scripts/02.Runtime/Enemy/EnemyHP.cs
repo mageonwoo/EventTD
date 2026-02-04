@@ -18,6 +18,11 @@ public class EnemyHP : MonoBehaviour
         curHP = maxHP;
     }
 
+    public void HPReset()
+    {
+        curHP = maxHP;
+    }
+
     public void OnDamaged()
     {
         curHP--;

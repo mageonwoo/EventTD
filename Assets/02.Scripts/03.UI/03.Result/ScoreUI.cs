@@ -5,7 +5,7 @@ using TMPro;
 public class ScoreUI : MonoBehaviour
 {
     [SerializeField] GameManager gameMgr;
-    [SerializeField] WaveManager waveMgr;
+    [SerializeField] WaveContext waveMgr;
     [SerializeField] ScoreCalculator scoreCalc;
 
     [SerializeField] Image scoreScreen;
@@ -21,7 +21,7 @@ public class ScoreUI : MonoBehaviour
     void Awake()
     {
         gameMgr = FindFirstObjectByType<GameManager>();
-        waveMgr = FindFirstObjectByType<WaveManager>();
+        waveMgr = FindFirstObjectByType<WaveContext>();
         scoreCalc = GetComponent<ScoreCalculator>();
     }
     void Start()

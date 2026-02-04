@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 7768918209790514520}
   - component: {fileID: 7038698965945639336}
   - component: {fileID: 6426248317082952001}
+  - component: {fileID: -3698845992118049097}
   - component: {fileID: 2453114155645474945}
   m_Layer: 0
   m_Name: Enemy1
@@ -123,10 +124,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: accca7b7f1cbd104492d4532d96ced33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waveMgr: {fileID: 0}
   enemyType: {fileID: 11400000, guid: 693c0745509146142bdacfb2d3d8e021, type: 2}
   enemyRoute: []
   enemyHp: {fileID: 6426248317082952001}
   routeIdx: 4
+  enemyDead: 0
 --- !u!114 &7038698965945639336
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -156,6 +159,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyCtx: {fileID: 7768918209790514520}
+  maxHP: 0
+--- !u!114 &-3698845992118049097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6768921394151252920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81aec31e30535374cb88584612370a92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPool: {fileID: 0}
+  enemyPoolIdex: 0
 --- !u!54 &2453114155645474945
 Rigidbody:
   m_ObjectHideFlags: 0

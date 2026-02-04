@@ -10,13 +10,13 @@ using UnityEngine;
 /// 5. 얼마의 간격으로 적이 소환될 것인가.
 /// 6. 한 웨이브의 시간은 얼마인가.
 /// </summary>
-public class WaveData : MonoBehaviour
+[CreateAssetMenu(menuName = "Wave/WaveData")]
+public class WaveDataSO : ScriptableObject
 {
-    [SerializeField] EnemyTypeSO enemySO;
-    public EnemyTypeSO EnemySO => enemySO;
-
     [SerializeField] int waveIdx = 0;
     public int WaveIdx => waveIdx;
+    [SerializeField] int maxWaveIdx = 3;
+    public int MaxWaveIdx => maxWaveIdx;
 
     [SerializeField] int limitEnemyCount = 20;
     public int LimitCount => limitEnemyCount;
@@ -38,9 +38,20 @@ public class WaveData : MonoBehaviour
 
     [SerializeField] int killCount = 0;
     public int Kill => killCount;
-    public void WaveLevelUp()
+
+    public void Init()
     {
-        SpawnCleaner();
+        waveIdx = 0;
+        aliveEnemy = 0;
+        spawnedEnemy = 0;
+        waveTimer = 0f;
+        killCount = 0;
+    }
+
+    public void LevelUpAndReset()
+    {
+        spawnedEnemy = 0;
+        waveTimer = 0f;
         waveIdx++;
     }
 
@@ -53,16 +64,9 @@ public class WaveData : MonoBehaviour
     public void EnemyKill()
     {
         killCount++;
-        
+
         aliveEnemy--;
-        if(aliveEnemy < 0)
-        aliveEnemy =0;
+        if (aliveEnemy < 0)
+            aliveEnemy = 0;
     }
-
-    public void SpawnCleaner()
-    {
-        spawnedEnemy = 0;
-    }
-
-
 }

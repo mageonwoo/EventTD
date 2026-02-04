@@ -6,7 +6,7 @@ using UnityEngine;
 /// </summary>
 public class EnemyContext : MonoBehaviour
 {
-    [SerializeField] WaveManager waveMgr;
+    [SerializeField] WaveContext waveMgr;
     public EnemyTypeSO enemyType;
     public Transform[] enemyRoute;
     public EnemyHP enemyHp;
@@ -18,7 +18,7 @@ public class EnemyContext : MonoBehaviour
     // 이동 속도, HP, HUD & Hp스케일러
     void Awake()
     {
-        waveMgr = FindFirstObjectByType<WaveManager>();
+        waveMgr = FindFirstObjectByType<WaveContext>();
 
         var r = GameObject.FindWithTag("Route");
         var all = r.GetComponentsInChildren<Transform>();
@@ -39,7 +39,7 @@ public class EnemyContext : MonoBehaviour
 
     public void OnDied()
     {
-        if(enemyDead) return;
+        if (enemyDead) return;
 
         enemyDead = true;
         waveMgr.ReportEnemyDead();
