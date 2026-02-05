@@ -8,8 +8,8 @@ public class EnemyContext : MonoBehaviour
 {
     [SerializeField] WaveContext waveMgr;
     public EnemyTypeSO enemyType;
-    public Transform[] enemyRoute;
     public EnemyHP enemyHp;
+    public EnemyMove enemyMove;
 
     public int routeIdx = 4;
 
@@ -19,15 +19,6 @@ public class EnemyContext : MonoBehaviour
     void Awake()
     {
         waveMgr = FindFirstObjectByType<WaveContext>();
-
-        var r = GameObject.FindWithTag("Route");
-        var all = r.GetComponentsInChildren<Transform>();
-
-        enemyRoute = new Transform[all.Length - 1];
-        for (int i = 1; i < all.Length; ++i)
-        {
-            enemyRoute[i - 1] = all[i];
-        }
     }
 
     void OnTriggerEnter(Collider bomb)
@@ -42,6 +33,6 @@ public class EnemyContext : MonoBehaviour
         if (enemyDead) return;
 
         enemyDead = true;
-        waveMgr.ReportEnemyDead();
+        waveMgr.RemoveEnemy(this);
     }
 }

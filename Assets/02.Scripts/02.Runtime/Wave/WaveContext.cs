@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 /// <summary>
 /// 1. 게임 시작 신호를 받고, 시작 카운트다운이 끝나면 웨이브 시작 신호를 스포너에 전달
@@ -16,9 +17,10 @@ public class WaveContext : MonoBehaviour
     [SerializeField] WaveDataSO waveData;
     public WaveDataSO Data => waveData;
     [SerializeField] EnemyPool enemyPool;
-    public Transform[] enemyRoute;
     public EnemyPool EnemyPool => enemyPool;
+    public Transform[] enemyRoute;
     [SerializeField] WaveSpawner waveSpawner;
+    List<EnemyContext> EnemyReg = new List<EnemyContext>();
 
     void Awake()
     {
@@ -70,9 +72,31 @@ public class WaveContext : MonoBehaviour
         }
     }
 
-    public void ReportEnemyDead()
+    public void CallUpEnemy()
     {
+        if (Data.WaveIdx < Data.MaxWaveIdx)
+        {
+            var go = EnemyPool.Get(Data.WaveIdx);
+            var ctx = go.GetComponent<EnemyContext>();
+
+            EnemyReg.Add(ctx);
+            ctx.enemyMove.InitRoute(enemyRoute);
+        }
+    }
+
+    public void RemoveEnemy(EnemyContext ctx)
+    {
+        if (EnemyReg.Contains(ctx))
+            EnemyReg.Remove(ctx);
+
         Data.EnemyKill();
+
+        EnemyPool.Return(ctx.gameObject);
+    }
+
+    public void ClearReg()
+    {
+        EnemyReg.Clear();
     }
 
     public void LevelUp()
@@ -84,6 +108,7 @@ public class WaveContext : MonoBehaviour
     {
         gameMgr.CallGameClear();
         gameMgr.Pause();
+        ClearReg();
 
         var sceneMgr = FindFirstObjectByType<SceneFlowManager>();
         sceneMgr.LoadToResult();
@@ -93,6 +118,7 @@ public class WaveContext : MonoBehaviour
     {
         gameMgr.CallGameOver();
         gameMgr.Pause();
+        ClearReg();
 
         var sceneMgr = FindFirstObjectByType<SceneFlowManager>();
         sceneMgr.LoadToResult();
