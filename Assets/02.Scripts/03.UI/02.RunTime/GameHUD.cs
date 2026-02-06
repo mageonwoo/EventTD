@@ -20,7 +20,7 @@ public class GameHUD : MonoBehaviour
         if (!waveMgr) waveMgr = FindFirstObjectByType<WaveContext>();
     }
 
-    void OnEnable()
+    void Start()
     {
         BriefUserID();
     }
@@ -36,7 +36,7 @@ public class GameHUD : MonoBehaviour
     {
         string id = GameManager.Instance.UserId;
 
-        if (id == null)
+        if (string.IsNullOrEmpty(id))
             userId.text = "Guest";
         else
             userId.text = $"UID: {id}";

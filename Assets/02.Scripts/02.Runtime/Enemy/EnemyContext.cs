@@ -11,8 +11,6 @@ public class EnemyContext : MonoBehaviour
     public EnemyHP enemyHp;
     public EnemyMove enemyMove;
 
-    public int routeIdx = 4;
-
     public bool enemyDead = false;
 
     // 이동 속도, HP, HUD & Hp스케일러
@@ -31,8 +29,14 @@ public class EnemyContext : MonoBehaviour
     public void OnDied()
     {
         if (enemyDead) return;
+        Debug.Log("Send this enemy is dead");
 
         enemyDead = true;
         waveMgr.RemoveEnemy(this);
+    }
+
+    public void ResetState()
+    {
+        enemyDead = false;
     }
 }

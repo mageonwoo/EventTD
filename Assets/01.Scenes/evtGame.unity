@@ -1232,7 +1232,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyType:
   - {fileID: 11400000, guid: 693c0745509146142bdacfb2d3d8e021, type: 2}
-  waveData: {fileID: 0}
+  - {fileID: 11400000, guid: 01cb1c06eeddf2a47a994237c38cf354, type: 2}
+  - {fileID: 11400000, guid: 952b6276857de6148b91f95231be59a8, type: 2}
+  waveData: {fileID: 11400000, guid: 5bf61c697cc5a1648821e02e0531132a, type: 2}
   poolSize: 10
 --- !u!1 &820312627
 GameObject:
@@ -1624,9 +1626,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameClock: {fileID: 1457084227}
-  waveData: {fileID: 0}
-  enemyPool: {fileID: 0}
-  enemyRoute: []
+  waveData: {fileID: 11400000, guid: 5bf61c697cc5a1648821e02e0531132a, type: 2}
+  enemyPool: {fileID: 716695091}
+  enemyRoute:
+  - {fileID: 1212026116}
+  - {fileID: 93118913}
+  - {fileID: 1670538678}
+  - {fileID: 1642746341}
   waveSpawner: {fileID: 963970996}
 --- !u!4 &963970995
 Transform:
@@ -1655,9 +1661,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34f9d7d94154dc04eb40e4496ec6cd25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waveCtx: {fileID: 0}
+  waveCtx: {fileID: 963970994}
   enemyRoot: {fileID: 716695089}
-  enemyPool: {fileID: 0}
+  enemyPool: {fileID: 716695091}
 --- !u!1 &1021965692
 GameObject:
   m_ObjectHideFlags: 0

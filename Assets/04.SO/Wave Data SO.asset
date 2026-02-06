@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0f2c9dbd7ba7ee4cbdd0ac8f35dc122, type: 3}
+  m_Name: Wave Data SO
+  m_EditorClassIdentifier: 
+  waveIdx: 0
+  maxWaveIdx: 3
+  limitEnemyCount: 20
+  aliveEnemy: 0
+  spawnedEnemy: 0
+  maxSpawnCount: 15
+  spawnCoolDown: 1
+  waveTimer: 0
+  waveDuration: 30
+  killCount: 0

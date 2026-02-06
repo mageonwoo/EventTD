@@ -8,7 +8,7 @@ public class EnemyHP : MonoBehaviour
     /// HP변수는 SO에서 얕게 복사해서 가져온다.
     /// </summary>
     public EnemyContext enemyCtx;
-    int curHP;
+    public int curHP;
     [SerializeField] int maxHP;
 
     void Awake()
@@ -25,6 +25,13 @@ public class EnemyHP : MonoBehaviour
 
     public void OnDamaged()
     {
+        // Debug.Log("OnDamaged");
+        if (enemyCtx.enemyDead)
+        {
+            Debug.Log("this enemy already dead");
+            return;
+        }
+
         curHP--;
 
         if (curHP <= 0)
@@ -34,8 +41,8 @@ public class EnemyHP : MonoBehaviour
     }
     public void Die()
     {
-        // gameObject.SetActive(false);
+        if (enemyCtx.enemyDead) return;
+
         enemyCtx.OnDied();
-        Destroy(gameObject);
     }
 }

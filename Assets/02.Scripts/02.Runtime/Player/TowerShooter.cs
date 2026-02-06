@@ -37,6 +37,12 @@ public class TowerShooter : MonoBehaviour
 
         IfEnemyDie();
 
+        // 현재 조준 중인 적이 비활성화 or 리스트에 존재하지 않는다면 null로 민다.
+        if (enemyPos != null && !enemyPos.gameObject.activeInHierarchy)
+        {
+            enemyPos = null;
+        }
+
         time += Time.deltaTime;
         if (time > coolTime)
         {
@@ -79,14 +85,23 @@ public class TowerShooter : MonoBehaviour
 
     void Shoot()
     {
-        bombPool.Get(shootPos.position, shootPos.rotation);
+        if (enemyPos == null) return;
+
+        GameObject bombObj = bombPool.Get(shootPos.position, shootPos.rotation);
+
+        Bomb bomb = bombObj.GetComponent<Bomb>();
+        if (bomb != null)
+        {
+            bomb.SetTarget(enemyPos);
+        }
     }
 
     void IfEnemyDie()
     {
         for (int i = listEnemy.Count - 1; i >= 0; i--)
         {
-            if (listEnemy[i] == null) listEnemy.RemoveAt(i);
+            if (listEnemy[i] == null || !listEnemy[i].activeInHierarchy)
+                listEnemy.RemoveAt(i);
         }
     }
 }

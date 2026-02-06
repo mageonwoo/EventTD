@@ -20,12 +20,12 @@ public class WaveContext : MonoBehaviour
     public EnemyPool EnemyPool => enemyPool;
     public Transform[] enemyRoute;
     [SerializeField] WaveSpawner waveSpawner;
-    List<EnemyContext> EnemyReg = new List<EnemyContext>();
+    [SerializeField] List<EnemyContext> EnemyReg = new List<EnemyContext>();
 
     void Awake()
     {
         gameMgr = GameManager.Instance;
-        gameClock = gameMgr.gameClock;
+        gameClock = FindFirstObjectByType<GameClock>();
     }
 
     void OnEnable()
@@ -78,6 +78,8 @@ public class WaveContext : MonoBehaviour
         {
             var go = EnemyPool.Get(Data.WaveIdx);
             var ctx = go.GetComponent<EnemyContext>();
+
+            ctx.ResetState();
 
             EnemyReg.Add(ctx);
             ctx.enemyMove.InitRoute(enemyRoute);
