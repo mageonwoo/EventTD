@@ -6,7 +6,7 @@ using UnityEngine;
 /// </summary>
 public class EnemyContext : MonoBehaviour
 {
-    [SerializeField] WaveContext waveMgr;
+    [SerializeField] WaveContext waveCtx;
     public EnemyTypeSO enemyType;
     public EnemyHP enemyHp;
     public EnemyMove enemyMove;
@@ -16,7 +16,7 @@ public class EnemyContext : MonoBehaviour
     // 이동 속도, HP, HUD & Hp스케일러
     void Awake()
     {
-        waveMgr = FindFirstObjectByType<WaveContext>();
+        waveCtx = FindFirstObjectByType<WaveContext>();
     }
 
     void OnTriggerEnter(Collider bomb)
@@ -32,7 +32,7 @@ public class EnemyContext : MonoBehaviour
         Debug.Log("Send this enemy is dead");
 
         enemyDead = true;
-        waveMgr.RemoveEnemy(this);
+        waveCtx.RemoveEnemy(this);
     }
 
     public void ResetState()

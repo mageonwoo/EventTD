@@ -34,7 +34,9 @@ public class Bomb : MonoBehaviour
             gameObject.SetActive(false);
         else
             this.gameObject.transform.position
-            = Vector3.MoveTowards(this.gameObject.transform.position, targetPos.transform.position, speed * Time.deltaTime);
+            = Vector3.MoveTowards(this.gameObject.transform.position,
+                                targetPos.transform.position,
+                                speed * Time.deltaTime);
 
         if (t >= bombLife)
         {

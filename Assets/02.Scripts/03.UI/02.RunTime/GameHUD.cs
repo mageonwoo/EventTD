@@ -8,56 +8,68 @@ using TMPro;
 /// </summary>
 public class GameHUD : MonoBehaviour
 {
-    [SerializeField] WaveContext waveMgr;
+    [SerializeField] WaveContext waveCtx;
 
     [SerializeField] TMP_Text userId;
     [SerializeField] TMP_Text waveIdx;
     [SerializeField] TMP_Text aliveCount;
     [SerializeField] TMP_Text waveRemainedT;
 
+    bool isIdSet = false;
+
     void Awake()
     {
-        if (!waveMgr) waveMgr = FindFirstObjectByType<WaveContext>();
+        if (!waveCtx) waveCtx = FindFirstObjectByType<WaveContext>();
+        userId.text = "Guest";
     }
 
-    void Start()
-    {
-        BriefUserID();
-    }
 
     void Update()
     {
-        BriefWaveIdx();
-        BriefAlive();
-        BriefTime();
+        // 한 번만 갱신
+        if (!isIdSet) GetUserID();
+
+        GetWaveIdx();
+        GetAliveCnt();
+        GetTime();
     }
 
-    void BriefUserID()
+    // void GetUserID()
+    // {
+    //     string id = GameManager.Instance.UserId;
+
+    //     if (string.IsNullOrEmpty(id))
+    //         userId.text = "Guest";
+    //     else
+    //         userId.text = $"UID: {id}";
+    // }
+    void GetUserID()
     {
         string id = GameManager.Instance.UserId;
 
-        if (string.IsNullOrEmpty(id))
-            userId.text = "Guest";
-        else
+        if (!string.IsNullOrEmpty(id))
+        {
             userId.text = $"UID: {id}";
+            isIdSet = true;
+        }
     }
 
-    void BriefWaveIdx()
+    void GetWaveIdx()
     {
-        if (waveMgr.Data.WaveIdx > 2)
+        if (waveCtx.Data.WaveIdx > 2)
             waveIdx.text = $"Wave: 3 / 3";
         else
-            waveIdx.text = $"Wave: {waveMgr.Data.WaveIdx + 1} / 3";
+            waveIdx.text = $"Wave: {waveCtx.Data.WaveIdx + 1} / 3";
     }
 
-    void BriefAlive()
+    void GetAliveCnt()
     {
-        aliveCount.text = $"Enemy: {waveMgr.Data.Alive} / 20";
+        aliveCount.text = $"Enemy: {waveCtx.Data.Alive} / 20";
     }
 
-    void BriefTime()
+    void GetTime()
     {
-        var time = waveMgr.Data.WaveDur - waveMgr.Data.waveTimer;
+        var time = waveCtx.Data.WaveDur - waveCtx.Data.waveTimer;
 
         int sec = Mathf.CeilToInt(time);
 

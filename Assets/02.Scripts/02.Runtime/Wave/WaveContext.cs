@@ -106,7 +106,7 @@ public class WaveContext : MonoBehaviour
         Data.LevelUpAndReset();
     }
 
-    void GameClear()
+    public void GameClear()
     {
         gameMgr.CallGameClear();
         gameMgr.Pause();
@@ -116,7 +116,7 @@ public class WaveContext : MonoBehaviour
         sceneMgr.LoadToResult();
     }
 
-    void GameOver()
+    public void GameOver()
     {
         gameMgr.CallGameOver();
         gameMgr.Pause();
