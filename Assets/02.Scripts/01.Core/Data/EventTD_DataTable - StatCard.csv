@@ -1,0 +1,15 @@
+ID,Name,Tier,StatType,Value,Description
+101,파괴 강화Ⅰ,Common,Damage_Mult,1.2,공격력이 20% 증가합니다
+102,파괴 강화Ⅱ,Common,Damage_Mult,1.2,공격력이 20% 증가합니다
+103,파괴 강화Ⅲ,Common,Damage_Mult,1.2,공격력이 20% 증가합니다
+,,,,,
+104,연사 강화Ⅰ,Common,ShootCooldown_Mult,0.8,공격 쿨타임이 20% 감소합니다.
+105,연사 강화Ⅱ,Common,ShootCooldown_Mult,0.8,공격 쿨타임이 20% 감소합니다.
+106,연사 강화Ⅲ,Common,ShootCooldown_Mult,0.8,공격 쿨타임이 20% 감소합니다.
+,,,,,
+107,투사체 증가Ⅰ,Common,Projectile_Count,1,한 번에 발사되는 포탄이 1개 추가됩니다.
+108,투사체 증가Ⅱ,Common,Projectile_Count,2,한 번에 발사되는 포탄이 2개 추가됩니다.
+109,투사체 증가Ⅲ,Common,Projectile_Count,3,한 번에 발사되는 포탄이 3개 추가됩니다.
+,,,,,
+201,도탄,Rare,Bounce_Count,1,투사체가 1회 튕기며 다음 적에게 50% 피해를 줍니다.
+202,보스 킬러,Rare,Boss_Mult,1.5,보스에게 50% 추가 피해를 줍니다.
